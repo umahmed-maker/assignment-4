@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersecurity Project - Assignments 3 & 4</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#1f2937;line-height:1.6}
+header{background:#172554;color:white;text-align:center;padding:38px 20px}
+nav{background:#fff;padding:14px;text-align:center;position:sticky;top:0;box-shadow:0 2px 8px #0002}
+nav a{margin:0 10px;color:#172554;font-weight:bold;text-decoration:none}
+main{max-width:1000px;margin:28px auto;padding:0 18px 40px}
+section{background:white;margin:20px 0;padding:25px;border-radius:12px;box-shadow:0 2px 10px #0001}
+h2,h3{color:#172554}
+.arch{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin:20px 0}
+.box{padding:10px 14px;background:#e0e7ff;border:2px solid #3730a3;border-radius:8px;font-weight:bold}
+.security{border-left:4px solid #3730a3;background:#f8fafc;padding:12px;margin-top:10px}
+input,textarea,select{width:100%;padding:11px;margin:7px 0 13px;border:1px solid #cbd5e1;border-radius:7px}
+button{background:#172554;color:white;border:0;padding:11px 18px;border-radius:7px;cursor:pointer;margin:4px}
+button:hover{opacity:.9}
+.result,.chat{background:#f8fafc;border:1px solid #e2e8f0;padding:15px;border-radius:8px;margin-top:12px}
+.chat{height:220px;overflow-y:auto}
+.msg{padding:8px 10px;margin:7px 0;border-radius:7px;background:#e0e7ff}
+.bot{background:#e2e8f0}
+.hidden{display:none}
+.avatar{width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid #3730a3;margin:15px auto;display:block}
+footer{text-align:center;padding:25px;color:#64748b}
+.note{font-size:.92rem;color:#475569}
+@media(max-width:650px){.arch{flex-direction:column}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header>
+<h1>Cybersecurity Project</h1>
+<p>Secure Web Architecture, Authentication & Access Control</p>
+</header>
+
+<nav>
+<a href="#assignment3">Assignment 3</a>
+<a href="#assignment4">Assignment 4</a>
+<a href="#chatbot">AI Chatbot</a>
+<a href="#digital-person">Digital Person</a>
+</nav>
+
+<main>
+<section id="assignment3">
+<h2>Assignment 3 – Secure Web Architecture</h2>
+<p>My website uses a secure architecture that separates the different parts of the application.</p>
+<div class="arch">
+<div class="box">User</div><div class="arrow">→</div>
+<div class="box">Frontend</div><div class="arrow">→</div>
+<div class="box">Web Server</div><div class="arrow">→</div>
+<div class="box">Application Layer</div><div class="arrow">→</div>
+<div class="box">Database</div>
+</div>
+<h3>Frontend</h3><p>The frontend contains the pages, forms, buttons, and other features users interact with.</p>
+<div class="security"><b>Security:</b> Input validation helps prevent harmful input such as XSS.</div>
+<h3>Web Server</h3><p>The web server receives browser requests and communicates with the application.</p>
+<div class="security"><b>Security:</b> HTTPS/TLS protects information while it travels between the browser and server.</div>
+<h3>Application Layer</h3><p>The application processes requests, checks permissions, and communicates with the database.</p>
+<div class="security"><b>Security:</b> Requests are validated and users are limited to authorized actions.</div>
+<h3>Database</h3><p>The database stores information needed by the application.</p>
+<div class="security"><b>Security:</b> Database access is restricted and passwords should be securely hashed instead of stored as plain text.</div>
+<h3>Authentication, Authorization, Encryption & Sessions</h3>
+<p>Authentication verifies a user's identity. Authorization determines what an authenticated user can access. Encryption protects information, while secure session management keeps track of logged-in users and expires inactive sessions.</p>
+<h3>Input Validation</h3>
+<p>Input is checked and safely handled to reduce threats such as SQL injection and Cross-Site Scripting (XSS).</p>
+</section>
+
+<section id="assignment4">
+<h2>Assignment 4 – Authentication & Access Control</h2>
+<p><b>Authentication</b> verifies who a user is. <b>Authorization</b> determines what that user is allowed to do.</p>
+
+<h3>Authentication Demonstration</h3>
+<label>Choose a demonstration role:</label>
+<select id="role">
+<option value="user">Regular User</option>
+<option value="admin">Administrator</option>
+</select>
+<label>Username</label>
+<input id="username" placeholder="Enter a username">
+<label>Password</label>
+<input id="password" type="password" placeholder="Enter a password">
+<button onclick="login()">Login</button>
+<button onclick="logout()">Logout</button>
+<div id="loginResult" class="result">Not logged in.</div>
+<p class="note">This is a classroom front-end demonstration. A production authentication system would verify credentials on a secure server and store password hashes in a protected database.</p>
+
+<div id="userPanel" class="result hidden">
+<h3>Regular User Access</h3>
+<p>✓ View personal information<br>✓ Edit personal profile<br>✗ Manage users<br>✗ View security logs</p>
+</div>
+
+<div id="adminPanel" class="result hidden">
+<h3>Administrator Access</h3>
+<p>✓ Manage users<br>✓ View security logs<br>✓ Manage website content</p>
+</div>
+</section>
+
+<section id="chatbot">
+<h2>Part 2 – AI Chatbot</h2>
+<p>Visitors can ask cybersecurity questions and receive responses from the chatbot demonstration.</p>
+<div id="chat" class="chat">
+<div class="msg bot"><b>Chatbot:</b> Hi! Ask me a cybersecurity question.</div>
+</div>
+<input id="question" placeholder="Example: What is phishing?" onkeydown="if(event.key==='Enter')sendMessage()">
+<button onclick="sendMessage()">Send</button>
+<p class="note">This version uses built-in responses so no private API key is exposed in GitHub Pages. A production AI chatbot would connect to an AI model through a secure backend.</p>
+</section>
+
+<section id="digital-person">
+<h2>Part 3 – AI Digital Person</h2>
+<p>Demonstration process: <b>Upload Photo → Generate Digital Person → Talk → Ask Questions → Receive Answers</b></p>
+
+<label>1. Upload a photo</label>
+<input id="photo" type="file" accept="image/*" onchange="previewPhoto(event)">
+<img id="avatar" class="avatar hidden" alt="Uploaded avatar preview">
+
+<button onclick="generateAvatar()">2. Generate Digital Person</button>
+<div id="avatarStatus" class="result">No digital person generated yet.</div>
+
+<label>3. Ask the digital person a question</label>
+<input id="avatarQuestion" placeholder="Ask a cybersecurity question">
+<button onclick="talk()">Talk / Ask Question</button>
+<div id="avatarAnswer" class="result">The digital person will answer here.</div>
+<p class="note">The uploaded image is previewed only in your browser and is not uploaded by this page. Actual AI photo-to-talking-avatar generation requires a secure external AI service/backend.</p>
+</section>
+</main>
+
+<footer>Computer Security Project – Assignments 3 & 4</footer>
+
+<script>
+let uploaded = false;
+
+function login(){
+  const name = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value;
+  const role = document.getElementById("role").value;
+  if(!name || !pass){
+    document.getElementById("loginResult").textContent="Please enter a username and password.";
+    return;
+  }
+  document.getElementById("loginResult").innerHTML="<b>Authenticated:</b> "+escapeHtml(name)+"<br><b>Authorized role:</b> "+(role==="admin"?"Administrator":"Regular User");
+  document.getElementById("userPanel").classList.toggle("hidden", role!=="user");
+  document.getElementById("adminPanel").classList.toggle("hidden", role!=="admin");
+}
+function logout(){
+  document.getElementById("loginResult").textContent="Logged out.";
+  document.getElementById("userPanel").classList.add("hidden");
+  document.getElementById("adminPanel").classList.add("hidden");
+  document.getElementById("password").value="";
+}
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+function answer(q){
+  const x=q.toLowerCase();
+  if(x.includes("phishing")) return "Phishing is an attempt to trick people into revealing information through fake messages, links, or websites.";
+  if(x.includes("password")) return "Use a long, unique password for each account and enable multi-factor authentication when available.";
+  if(x.includes("xss")) return "Cross-Site Scripting (XSS) happens when malicious script is inserted into content shown to users. Input handling and output encoding help prevent it.";
+  if(x.includes("sql")) return "SQL injection targets database queries. Parameterized queries and input validation help protect applications.";
+  if(x.includes("authentication")) return "Authentication verifies who a user is, such as through a username, password, or MFA.";
+  if(x.includes("authorization")) return "Authorization determines what an authenticated user is allowed to access or change.";
+  if(x.includes("https") || x.includes("encryption")) return "HTTPS uses TLS to encrypt data traveling between a browser and web server.";
+  if(x.includes("malware")) return "Malware is malicious software designed to damage, disrupt, spy on, or gain unauthorized access to systems.";
+  return "I can answer basic questions about phishing, passwords, XSS, SQL injection, authentication, authorization, HTTPS, encryption, and malware.";
+}
+function sendMessage(){
+  const input=document.getElementById("question");
+  const q=input.value.trim();
+  if(!q)return;
+  const chat=document.getElementById("chat");
+  chat.innerHTML+='<div class="msg"><b>You:</b> '+escapeHtml(q)+'</div>';
+  chat.innerHTML+='<div class="msg bot"><b>Chatbot:</b> '+answer(q)+'</div>';
+  input.value="";
+  chat.scrollTop=chat.scrollHeight;
+}
+function previewPhoto(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  const img=document.getElementById("avatar");
+  img.src=URL.createObjectURL(file);
+  img.classList.remove("hidden");
+  uploaded=true;
+  document.getElementById("avatarStatus").textContent="Photo uploaded. Click Generate Digital Person.";
+}
+function generateAvatar(){
+  document.getElementById("avatarStatus").textContent=uploaded
+    ?"Digital person demonstration created from your selected photo."
+    :"Please upload a photo first.";
+}
+function talk(){
+  const q=document.getElementById("avatarQuestion").value.trim();
+  if(!uploaded){
+    document.getElementById("avatarAnswer").textContent="Please upload a photo and generate the digital person first.";
+    return;
+  }
+  if(!q){
+    document.getElementById("avatarAnswer").textContent="Please enter a question.";
+    return;
+  }
+  const response=answer(q);
+  document.getElementById("avatarAnswer").textContent=response;
+  if("speechSynthesis" in window){
+    speechSynthesis.cancel();
+    speechSynthesis.speak(new SpeechSynthesisUtterance(response));
+  }
+}
+</script>
+</body>
+</html>
